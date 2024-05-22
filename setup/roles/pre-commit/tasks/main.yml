@@ -1,6 +1,0 @@
----
-
-- name: Run npm install in the repo root directory
-  shell: npm install
-  args:
-    chdir: "{{ playbook_dir }}/../.."

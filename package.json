@@ -1,6 +1,6 @@
 {
-  "name": "c3standards",
-  "description": "Standard C3 AI applications repository",
+  "name": "docker",
+  "description": "Docker container repo",
   "author": "C3 AI",
   "devDependencies": {
     "@c3-e/eslint-plugin": "^2.0.3",
