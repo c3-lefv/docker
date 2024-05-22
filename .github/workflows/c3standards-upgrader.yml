@@ -1,0 +1,64 @@
+name: c3standards-upgrader
+run-name: c3standards Upgrader
+
+on:
+  workflow_dispatch:
+#   # [Configuration] Uncomment and set the cron schedule to auto-update the c3standards.
+#   #                 By default, the auto-update is performed at midnight every Sunday.
+#   schedule:
+#     # The cron expression is in UTC. 7:00 UTC corresponds to midnight PST.
+#     - cron: '0 7 * * SUN'
+
+permissions: write-all
+
+env:
+  # The target branch to merge the c3standards repository into.
+  target_branch: 'develop'
+
+  # Boolean to indicate whether the c3standards upgrader should always create a PR.
+  # By default, if there are patch conflicts, the patched changes are merged automatically into
+  # the `target_branch` configured above.
+  always_create_pr: false
+
+jobs:
+  merge-commit-upstream:
+    runs-on: ubuntu-latest
+
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          path: main
+          token: ${{ secrets.AUTOMATION_GITHUB_TOKEN }}
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          repository: c3-e/c3standards
+          path: c3standards
+          token: ${{ secrets.AUTOMATION_GITHUB_TOKEN }}
+          ref: master
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v3
+        with:
+          python-version: '3.9'
+
+      - name: Run the upstream-merger script
+        run: |
+          tree c3standards
+          echo ${{ github.workspace }}
+          ls
+          cd ${{ github.workspace }}/c3standards
+          git config --global user.email "engx@c3.ai"
+          git config --global user.name "ENG-X Automation"
+          cd ${{ github.workspace }}/main
+          git config --global user.email "engx@c3.ai"
+          git config --global user.name "ENG-X Automation"
+          pip install requests
+          python scripts/c3standards-upgrader/c3standards-upgrader.py ${{ env.target_branch }} ${{ env.always_create_pr }} ${{ github.workspace }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.AUTOMATION_GITHUB_TOKEN }}
+          GITHUB_CONTEXT: ${{ toJson(github) }}

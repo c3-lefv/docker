@@ -1,0 +1,76 @@
+{
+  "extends": [
+    "eslint:recommended",
+    "plugin:@c3-e/eslint-plugin/style-guide"
+  ],
+  // By default, eslint ignores folders that start with a dot. Explicitly lint c3 specific folders.
+  "ignorePatterns": ["!.jarvis"],
+  "parserOptions": {
+    "ecmaVersion": 2021
+  },
+  "overrides": [
+    {
+      "files": ["test_*.{js,jsx}"],
+      "plugins": [
+        "jasmine"
+      ],
+      "env": {
+        "jasmine": true
+      },
+      "extends": [
+        // Extend the base jasmine rules
+        "plugin:@c3-e/eslint-plugin/jasmine"
+      ]
+    },
+    {
+      "files": ["test_*.{ts,tsx}"],
+      "plugins": [
+        "jasmine"
+      ],
+      "env": {
+        "jasmine": true
+      },
+      "parser": "@typescript-eslint/parser",
+      "parserOptions": {
+        "ecmaVersion": 2021
+      },
+      "extends": [
+        // Extend the base jasmine and typescript rules
+        "plugin:@c3-e/eslint-plugin/jasmine",
+        "plugin:@c3-e/eslint-plugin/typescript"
+      ]
+    },
+    {
+      "files": ["**/{/test,}/src/**/*.tsx"],
+      "parserOptions": {
+        "sourceType": "module",
+        "ecmaFeatures": {
+          "jsx": true
+        },
+        "ecmaVersion": 2021
+      },
+      "settings": {
+        "react": {
+          "version": "16.9.0"
+        }
+      },
+      "extends": [
+        // Extend the base typescript rules
+        "plugin:@c3-e/eslint-plugin/typescript"
+      ]
+    },
+    {
+      "files": [
+        "**/{/test,}/src/**/*.ts"
+      ],
+      "parser": "@typescript-eslint/parser",
+      "parserOptions": {
+        "ecmaVersion": 2021
+      },
+      "extends": [
+        // Extend the base typescript rules
+        "plugin:@c3-e/eslint-plugin/typescript"
+      ]
+    }
+  ]
+}

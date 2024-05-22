@@ -1,0 +1,9 @@
+---
+
+- name: Set npm registry for organization scope
+  command: npm config set "@c3-e:registry" https://npm.pkg.github.com
+  when: github_token | default('') | length > 0
+
+- name: Authenticate to GitHub package registry
+  command: npm config set "//npm.pkg.github.com/:_authToken" "{{ github_token }}"
+  when: github_token | default('') | length > 0

@@ -1,0 +1,4 @@
+**/gen/cache/**
+**/build/**
+**/dist/**
+**/vendor/**
