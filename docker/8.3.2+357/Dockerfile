@@ -1,3 +1,4 @@
+# docker build . -t 8_32_1715
 FROM locked-registry.c3.ai/c3:8.3.2-rc_1715
 
 # Add local files file system
