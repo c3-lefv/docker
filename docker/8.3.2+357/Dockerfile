@@ -6,8 +6,8 @@ USER root
 # System setup
 #======================================================================
 
-ENV C3_USER BA
-ENV C3_PASSWORD BA
+ENV C3_USER ${C3_USER} # ommitted 
+ENV C3_PASSWORD ${C3_PASSWORD} # ommitted
 ENV C3_DIR /home/c3/
 ENV C3_APPS_ROOT /home/c3/c3base
 ENV LANG en_US.UTF-8
